@@ -1,0 +1,25 @@
+# 视频处理相关配置
+video:
+  alpha: 1.6          # 对比度增强系数，值越大对比度越高
+  beta: 25            # 亮度调整值，正值增加亮度，负值降低亮度
+  kernel_size: [21, 21]  # 高斯模糊核大小，用于处理噪点
+  threshold:          # 阈值设置，用于分离暗区
+    lower: 0          # 最小阈值，低于此值的像素被视为暗区
+    upper: 50         # 最大阈值，高于此值的像素被视为亮区
+  formats: ['mp4', 'avi', 'mov']  # 支持的视频格式列表
+
+# 图像处理相关配置
+image:
+  alpha: 1.6          # 图像对比度增强系数
+  beta: 25            # 图像亮度调整值
+  kernel_size: [21, 21]  # 图像模糊核大小
+  threshold:          # 图像阈值设置
+    lower: 0          # 图像最小阈值
+    upper: 50         # 图像最大阈值
+  formats: ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']  # 支持的图像格式列表
+
+# 输出相关配置
+output:
+  video_codec: 'mp4v'    # 视频编码格式，mp4v 为通用格式
+  video_fps: 30          # 输出视频的帧率
+  image_quality: 95      # 输出图像的质量（1-100），值越大质量越好
