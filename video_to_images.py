@@ -1,6 +1,7 @@
 import cv2
 import os
 from pathlib import Path
+from tqdm import tqdm
 
 def video_to_shot(video_path, output_path):
     """
@@ -34,7 +35,8 @@ def video_to_shot(video_path, output_path):
         fps = int(cap.get(cv2.CAP_PROP_FPS))
         print(f"视频信息：总帧数 {total_frames}, FPS {fps}")
 
-        # 初始化帧计数器
+        # 使用tqdm创建进度条
+        pbar = tqdm(total=total_frames, desc="处理进度")
         frame_count = 0
 
         # 循环读取视频的每一帧
@@ -49,13 +51,11 @@ def video_to_shot(video_path, output_path):
             # 保存当前帧为图片
             cv2.imwrite(str(frame_path), frame)
 
-            # 打印进度
-            if frame_count % 100 == 0:
-                progress = (frame_count / total_frames) * 100
-                print(f"进度: {progress:.2f}% ({frame_count}/{total_frames})")
-
+            # 更新进度条
+            pbar.update(1)
             frame_count += 1
 
+        pbar.close()
         print(f"完成！共保存 {frame_count} 帧图像到 '{output_path}'")
         return frame_count
 
